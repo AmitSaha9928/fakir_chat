@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "599974635834",
+    "project_id": "fakir-chat",
+    "storage_bucket": "fakir-chat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:599974635834:android:f5bcf51c91d128d38d4803",
+        "android_client_info": {
+          "package_name": "com.example.fakir_chat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCn0yXb9_lALhvuhguj4kQWMfRZPsg2SM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:599974635834:android:1e0a8c9b90beeee28d4803",
+        "android_client_info": {
+          "package_name": "com.fakir.fakir_chat.fakir_chat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCn0yXb9_lALhvuhguj4kQWMfRZPsg2SM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

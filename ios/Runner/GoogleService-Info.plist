@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyAHaDifPm-WI2x_-rRirfZ-tSK-4oZ9tng</string>
+	<key>GCM_SENDER_ID</key>
+	<string>599974635834</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.fakir.fakirchat.fakirChat</string>
+	<key>PROJECT_ID</key>
+	<string>fakir-chat</string>
+	<key>STORAGE_BUCKET</key>
+	<string>fakir-chat.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:599974635834:ios:b85d92ece89b0b8c8d4803</string>
+</dict>
+</plist>
