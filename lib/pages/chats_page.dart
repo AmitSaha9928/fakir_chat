@@ -146,6 +146,9 @@ class _ChatsPageState extends State<ChatsPage> {
       isActive: _isActive,
       isActivity: _chat.activity,
       onTap: () {
+        // Mark the chat as read when the user taps on it
+        _pageProvider.markMessagesAsRead(_chat);
+        // Navigate to the chat page
         _navigation.navigateToPage(
           ChatPage(chat: _chat),
         );

@@ -84,4 +84,17 @@ class ChatsPageProvider extends ChangeNotifier {
       print(e);
     }
   }
+
+  Future<void> markMessagesAsRead(Chat chat) async {
+    List<ChatMessage> unreadMessages =
+        chat.messages.where((message) => !message.isRead).toList();
+    if (unreadMessages.isNotEmpty) {
+      for (ChatMessage message in unreadMessages) {
+        message.isRead = true;
+        await _db.updateMessageReadStatus(
+          chat.uid,
+        ); // Assuming you have this method in your DatabaseService
+      }
+    }
+  }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 //Packages
-
 import 'package:provider/provider.dart';
 
 //Services

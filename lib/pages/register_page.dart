@@ -24,7 +24,6 @@ class RegisterPage extends StatefulWidget {
     return _RegisterPageState();
   }
 }
-
 class _RegisterPageState extends State<RegisterPage> {
   late double _deviceHeight;
   late double _deviceWidth;

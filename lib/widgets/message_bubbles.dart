@@ -37,16 +37,28 @@ class TextMessageBubble extends StatelessWidget {
         ),
       ),
       child: Column(
-        mainAxisSize: MainAxisSize.min, // Use min to avoid overflow
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            message.content,
-            style: TextStyle(
-              color: Colors.white,
-            ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Expanded(
+                child: Text(
+                  message.content,
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Icon(
+                Icons.done_all,
+                color: message.isRead ? Colors.blue : Colors.grey,
+                size: 16,
+              ),
+            ],
           ),
-          SizedBox(height: 4), // Add some spacing
+          SizedBox(height: 4),
           Text(
             timeago.format(message.sentTime),
             style: TextStyle(
@@ -103,16 +115,28 @@ class FileMessageBubble extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Download: ${message.content}', // Display "Download: filename"
+              'Download: ${message.content}',
               style: TextStyle(
                 color: Colors.white,
               ),
             ),
-            Text(
-              timeago.format(message.sentTime),
-              style: TextStyle(
-                color: Colors.white70,
-              ),
+            SizedBox(height: 4),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  timeago.format(message.sentTime),
+                  style: TextStyle(
+                    color: Colors.white70,
+                  ),
+                ),
+                SizedBox(width: 8),
+                Icon(
+                  Icons.done_all,
+                  color: message.isRead ? Colors.blue : Colors.grey,
+                  size: 16,
+                ),
+              ],
             ),
           ],
         ),
@@ -120,21 +144,17 @@ class FileMessageBubble extends StatelessWidget {
     );
   }
 
-  // Function to launch URL
   void _launchURL(String url) async {
     if (url != null) {
       if (await canLaunchUrl(Uri(scheme: "https", path: url))) {
         await launchUrl(
           Uri.parse(url),
-          //forceWebView: true,
         );
       } else {
         print('Could not launch $url');
-        // Optionally, display an error message to the user
       }
     } else {
       print('URL is null');
-      // Optionally, display an error message to the user
     }
   }
 }
@@ -145,11 +165,12 @@ class ImageMessageBubble extends StatelessWidget {
   final double height;
   final double width;
 
-  ImageMessageBubble(
-      {required this.isOwnMessage,
-      required this.message,
-      required this.height,
-      required this.width});
+  ImageMessageBubble({
+    required this.isOwnMessage,
+    required this.message,
+    required this.height,
+    required this.width,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -191,11 +212,22 @@ class ImageMessageBubble extends StatelessWidget {
             ),
           ),
           SizedBox(height: height * 0.02),
-          Text(
-            timeago.format(message.sentTime),
-            style: TextStyle(
-              color: Colors.white70,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Icon(
+                Icons.done_all,
+                color: message.isRead ? Colors.blue : Colors.grey,
+                size: 16,
+              ),
+              SizedBox(width: 4),
+              Text(
+                timeago.format(message.sentTime),
+                style: TextStyle(
+                  color: Colors.white70,
+                ),
+              ),
+            ],
           ),
         ],
       ),

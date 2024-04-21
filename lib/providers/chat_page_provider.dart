@@ -213,4 +213,13 @@ class ChatPageProvider extends ChangeNotifier {
   void goBack() {
     _navigation.goBack();
   }
+  void markMessagesAsRead(List<ChatMessage> messages) async {
+  for (ChatMessage message in messages) {
+    if (!message.isRead) {
+      message.isRead = true;
+      // Update the message in the database
+      await _db.updateMessageReadStatus(_chatId); // You need to implement this method in the DatabaseService
+    }
+  }
+}
 }

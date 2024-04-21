@@ -145,4 +145,24 @@ class DatabaseService {
       print(e);
     }
   }
+
+  Future<void> updateMessageReadStatus(String chatId) async {
+    try {
+      await _db
+          .collection(CHAT_COLLECTION)
+          .doc(chatId)
+          .collection(MESSAGES_COLLECTION)
+          .where('isRead', isEqualTo: false)
+          .get()
+          .then((querySnapshot) {
+        querySnapshot.docs.forEach((doc) {
+          doc.reference.update({'isRead': true});
+        });
+      });
+    } catch (e) {
+      print('Error marking messages as read: $e');
+      throw e;
+    }
+  }
+
 }

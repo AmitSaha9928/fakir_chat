@@ -45,6 +45,7 @@ class ChatMessage {
       senderID: json['sender_id'],
       sentTime: json['sent_time'].toDate(),
       url: json['url'],
+      isRead: json['isRead'] ?? false,
     );
   }
 
@@ -69,6 +70,7 @@ class ChatMessage {
       'sender_id': senderID,
       'sent_time': Timestamp.fromDate(sentTime),
       'url': url,
+      'isRead': isRead,
     };
   }
 }
