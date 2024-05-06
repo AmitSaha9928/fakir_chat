@@ -95,6 +95,7 @@ class _ChatsPageState extends State<ChatsPage> {
       child: (() {
         if (_chats != null) {
           if (_chats.length != 0) {
+            // _pageProvider.calculateUnreadMessagesCount();
             return ListView.builder(
               itemCount: _chats.length,
               itemBuilder: (BuildContext _context, int _index) {
@@ -138,21 +139,52 @@ class _ChatsPageState extends State<ChatsPage> {
             '${words.take(10).join(' ')}${words.length > 10 ? '...' : ''}';
       }
     }
-    return CustomListViewTileWithActivity(
-      height: _deviceHeight * 0.10,
-      title: _chat.title(),
-      subtitle: _subtitleText,
-      imagePath: _chat.imageURL(),
-      isActive: _isActive,
-      isActivity: _chat.activity,
-      onTap: () {
-        // Mark the chat as read when the user taps on it
-        _pageProvider.markMessagesAsRead(_chat);
-        // Navigate to the chat page
-        _navigation.navigateToPage(
-          ChatPage(chat: _chat),
+
+    Widget _unreadMessagesCountWidget() {
+      _pageProvider.listenToUnreadMessagesCount(_chat.uid);
+      bool currentUserIsNotSender = _chat.messages.isNotEmpty &&
+          _chat.messages.first.senderID != _auth.user.uid;
+      if (_chat.unreadMessagesCount > 0 && currentUserIsNotSender) {
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          decoration: BoxDecoration(
+            color: Colors.red,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Text(
+            '${_chat.unreadMessagesCount}',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         );
-      },
+      } else {
+        return SizedBox();
+      }
+    }
+
+    return Row(
+      children: [
+        Expanded(
+          child: CustomListViewTileWithActivity(
+            height: _deviceHeight * 0.10,
+            title: _chat.title(),
+            subtitle: _subtitleText,
+            imagePath: _chat.imageURL(),
+            isActive: _isActive,
+            isActivity: _chat.activity,
+            onTap: () {
+              _pageProvider.markMessagesAsRead(_chat);
+              _navigation.navigateToPage(
+                ChatPage(chat: _chat),
+              );
+            },
+          ),
+        ),
+        _unreadMessagesCountWidget(),
+      ],
     );
   }
 }

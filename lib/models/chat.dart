@@ -10,6 +10,7 @@ class Chat {
   List<ChatMessage> messages;
 
   late final List<ChatUser> _recepients;
+  int unreadMessagesCount;
 
   Chat({
     required this.uid,
@@ -18,6 +19,7 @@ class Chat {
     required this.messages,
     required this.activity,
     required this.group,
+    this.unreadMessagesCount = 0,
   }) {
     _recepients = members.where((_i) => _i.uid != currentUserUid).toList();
   }
@@ -37,4 +39,8 @@ class Chat {
         ? _recepients.first.imageURL
         : "https://e7.pngegg.com/pngimages/380/670/png-clipart-group-chat-logo-blue-area-text-symbol-metroui-apps-live-messenger-alt-2-blue-text.png";
   }
+
+  // void updateUnreadMessagesCount(int count) {
+  //   unreadMessagesCount = count;
+  // }
 }

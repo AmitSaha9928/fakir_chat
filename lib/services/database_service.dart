@@ -1,6 +1,7 @@
 //Packages
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fakir_chat/models/chat_message.dart';
+import 'package:flutter/material.dart';
 
 const String USER_COLLECTION = "Users";
 const String CHAT_COLLECTION = "Chats";
@@ -76,6 +77,7 @@ class DatabaseService {
           .add(
             _message.toJson(),
           );
+      await updateUnreadMessageCount(_chatID);
     } catch (e) {
       print(e);
     }
@@ -165,4 +167,34 @@ class DatabaseService {
     }
   }
 
+  Future updateUnreadMessageCount(String chatId) async {
+    try {
+      // Query the messages collection for unread messages
+      QuerySnapshot querySnapshot = await _db
+          .collection(CHAT_COLLECTION)
+          .doc(chatId)
+          .collection(MESSAGES_COLLECTION)
+          .where('isRead', isEqualTo: false)
+          .get();
+
+      // Get the number of unread messages
+      int unreadCount = querySnapshot.size;
+
+      // Update the unread message count in the chat document
+      await _db
+          .collection(CHAT_COLLECTION)
+          .doc(chatId)
+          .update({'unreadMessagesCount': unreadCount});
+    } catch (e) {
+      print('Error updating unread message count in Firebase: $e');
+      throw e;
+    }
+  }
+Stream<int> streamUnreadMessagesCount(String chatId) {
+    return _db
+        .collection(CHAT_COLLECTION)
+        .doc(chatId)
+        .snapshots()
+        .map((snapshot) => snapshot.data()?['unreadMessagesCount'] ?? 0);
+  }
 }

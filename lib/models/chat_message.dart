@@ -73,4 +73,8 @@ class ChatMessage {
       'isRead': isRead,
     };
   }
+
+  void toggleIsRead() {
+    isRead = !isRead;
+  }
 }

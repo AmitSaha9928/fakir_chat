@@ -1,4 +1,6 @@
 //Packages
+import 'package:fakir_chat/providers/chats_page_provider.dart';
+import 'package:fakir_chat/services/database_service.dart';
 import 'package:fakir_chat/services/media_service.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +38,8 @@ class _ChatPageState extends State<ChatPage> {
 
   late AuthenticationProvider _auth;
   late ChatPageProvider _pageProvider;
+  late ChatsPageProvider _cpageProvider;
+  late DatabaseService _db;
 
   MediaServices _mediaServices = MediaServices();
   DocServices _docServices = DocServices();
@@ -220,6 +224,8 @@ class _ChatPageState extends State<ChatPage> {
             _messageFormState.currentState!.save();
             _pageProvider.sendTextMessage();
             _messageFormState.currentState!.reset();
+            // _cpageProvider.calculateUnreadMessagesCount();
+            _pageProvider.updateCount();
           }
         },
       ),
@@ -243,6 +249,7 @@ class _ChatPageState extends State<ChatPage> {
               await _mediaServices.pickMultipleImagesFromLibrary();
           if (selectedFiles != null && selectedFiles.isNotEmpty) {
             _pageProvider.sendMultipleImageMessages(selectedFiles);
+            //_cpageProvider.calculateUnreadMessagesCount();
           }
         },
         child: Icon(Icons.photo_library_rounded),
